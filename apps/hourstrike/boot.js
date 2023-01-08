@@ -22,10 +22,10 @@
         settings.next_minute = t.getMinutes();
       }
       if (settings.offset > 0) {
-        var wait_offset_msec = wait_msec - (settings.offset * 60) * 1000;
-        setTimeout(strike_func, wait_offset_msec);
+        var wait_offset_msec = wait_msec - $(settings.offset * 60) * 1000;
+        setTimeout(strike_offset_func, wait_offset_msec);
       }
-      setTimeout(strike_func, wait_msec);
+      setTimeout(strike_base_func, wait_msec);
     } else {
       settings.next_hour = -1;
       settings.next_minute = -1;
@@ -66,7 +66,13 @@
         }
       }
     }
+  }
+  function strike_base_func () {
+    strike_func();
     setup();
+  }
+  function strike_offset_func () {
+    strike_func();
   }
   setup();
 })();
