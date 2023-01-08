@@ -28,7 +28,7 @@ function showMainMenu() {
     value: settings.vlevel*10, min: 1, max: 10, format: v=>v/10,
     onchange: v=> {settings.vlevel = v/10; updateSettings();}};
   mainmenu.Strikecount = {
-    value: settings.scount, min: 1, max: 2, format: v=>v,
+    value: settings.scount, min: 1, max: 3, format: v=>v,
     onchange: v=> {settings.scount = v; updateSettings();}};
   mainmenu.Chimetype = {
     value: settings.buzzOrBeep, min: 0, max: 1, format: v => chimes[v],
