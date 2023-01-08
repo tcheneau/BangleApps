@@ -22,7 +22,7 @@
         settings.next_minute = t.getMinutes();
       }
       if (settings.offset > 0) {
-        var wait_offset_msec = (settings.offset * 60) * 1000;
+        var wait_offset_msec = wait_msec - (settings.offset * 60) * 1000;
         setTimeout(strike_func, wait_offset_msec);
       }
       setTimeout(strike_func, wait_msec);
