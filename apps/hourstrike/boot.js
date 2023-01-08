@@ -55,6 +55,8 @@
       if (3 == setting.scount) {
         Bangle.beep(200)
           .then(() => new Promise(resolve => setTimeout(resolve,100)))
+          .then(() => Bangle.beep(300))
+          .then(() => new Promise(resolve => setTimeout(resolve,100)))
           .then(() => Bangle.beep(300));
       } else {
         if (2 == setting.scount) {
@@ -67,6 +69,7 @@
       }
     }
   }
+
   function strike_base_func () {
     strike_func();
     setup();
