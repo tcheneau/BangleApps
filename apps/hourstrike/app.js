@@ -25,7 +25,7 @@ function showMainMenu() {
     value: settings.end, min: 0, max: 23, format: v=>v+':59',
     onchange: v=> {settings.end = v; updateSettings();}};
   mainmenu.Offset = {
-    value: settings.offset, min: 0, max: settings.interval, format: v=>v,
+    value: settings.offset, min: 0, max: settings.interval/60, format: v=>v,
     onchange: v=> {settings.offset = v; updateSettings();}};
   mainmenu.Strength = {
     value: settings.vlevel*10, min: 1, max: 10, format: v=>v/10,
