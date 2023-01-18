@@ -43,6 +43,7 @@
 
   /* from vectorclock */
   function vibrateDigitBuzz(num, vlevel) {
+    Bangle.buzz(500, vlevel || 0.5);
     return new Promise(function f(resolve){
       if (num--<=0) return resolve();
       Bangle.buzz(200, vlevel || 0.5).then(()=>{
@@ -51,6 +52,7 @@
     });
   }
   function vibrateDigitBeep(num) {
+    Bangle.beep(200);
     return new Promise(function f(resolve){
       if (num--<=0) return resolve();
       Bangle.beep(200).then(()=>{
