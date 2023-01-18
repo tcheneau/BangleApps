@@ -21,6 +21,7 @@
         settings.next_hour = t_hour;
         settings.next_minute = t.getMinutes();
       }
+
       if (settings.offset > 0) {
         var wait_offset_msec = wait_msec - (settings.offset * 60) * 1000;
         setTimeout(strike_offset_func, wait_offset_msec);
@@ -59,13 +60,15 @@
   }
 
   function strike_base_func () {
-    var setting = require('Storage').readJSON('hourstrike.json',1)||[];
-    strike_func(setting.scount || 0, setting.buzzOrBeep || 0);
+    var settings = require('Storage').readJSON('hourstrike.json',1)||[];
+    strike_func(settings.scount || 0, settings.buzzOrBeep || 0);
     setup();
   }
+
   function strike_offset_func () {
-    var setting = require('Storage').readJSON('hourstrike.json',1)||[];
-    strike_func(setting.offset_scount || 0, setting.buzzOrBeep || 0);
+    var settings = require('Storage').readJSON('hourstrike.json',1)||[];
+    strike_func(settings.offset_scount || 0, settings.buzzOrBeep || 0);
   }
+
   setup();
 })();
