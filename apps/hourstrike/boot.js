@@ -42,19 +42,17 @@
 
   /* from vectorclock */
   function vibrateDigitBuzz(num) {
-    if (num==0) return Bangle.buzz(200, setting.vlevel|| 0.5);
     return new Promise(function f(resolve){
       if (num--<=0) return resolve();
-      Bangle.buzz(100, setting.vlevel || 0.5).then(()=>{
+      Bangle.buzz(200, setting.vlevel || 0.5).then(()=>{
         setTimeout(()=>f(resolve), 200);
       });
     });
   }
   function vibrateDigitBeep(num) {
-    if (num==0) return Bangle.beep(200);
     return new Promise(function f(resolve){
       if (num--<=0) return resolve();
-      Bangle.beep(100).then(()=>{
+      Bangle.beep(200).then(()=>{
         setTimeout(()=>f(resolve), 200);
       });
     });
