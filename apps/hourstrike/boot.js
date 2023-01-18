@@ -32,50 +32,42 @@
     }
     require('Storage').write('hourstrike.json', settings);
   }
-  function strike_func () {
-    var setting = require('Storage').readJSON('hourstrike.json',1)||[];
-    if (0 == setting.buzzOrBeep) {
-      if (3 == setting.scount) {
-        Bangle.buzz(200, setting.vlevel||0.5)
-          .then(() => new Promise(resolve => setTimeout(resolve,200)))
-          .then(() => Bangle.buzz(200, setting.vlevel||0.5))
-          .then(() => new Promise(resolve => setTimeout(resolve,200)))
-          .then(() => Bangle.buzz(200, setting.vlevel||0.5));
-      } else {
-        if (2 == setting.scount) {
-          Bangle.buzz(200, setting.vlevel||0.5)
-            .then(() => new Promise(resolve => setTimeout(resolve,200)))
-            .then(() => Bangle.buzz(200, setting.vlevel||0.5));
-        }
-        else {
-          Bangle.buzz(200, setting.vlevel||0.5);
-        }
-      }
+  function strike_func (count, buzzOrBeep) {
+    if (0 == buzzOrBeep) {
+      vibrateDigitBuzz(count);
     } else {
-      if (3 == setting.scount) {
-        Bangle.beep(200)
-          .then(() => new Promise(resolve => setTimeout(resolve,100)))
-          .then(() => Bangle.beep(300))
-          .then(() => new Promise(resolve => setTimeout(resolve,100)))
-          .then(() => Bangle.beep(300));
-      } else {
-        if (2 == setting.scount) {
-          Bangle.beep(200)
-            .then(() => new Promise(resolve => setTimeout(resolve,100)))
-          .then(() => Bangle.beep(300));
-        } else {
-          Bangle.beep(200);
-        }
-      }
+      vibrateDigitBeep(count);
     }
   }
 
+  /* from vectorclock */
+  function vibrateDigitBuzz(num) {
+    if (num==0) return Bangle.buzz(200, setting.vlevel|| 0.5);
+    return new Promise(function f(resolve){
+      if (num--<=0) return resolve();
+      Bangle.buzz(100, setting.vlevel || 0.5).then(()=>{
+        setTimeout(()=>f(resolve), 200);
+      });
+    });
+  }
+  function vibrateDigitBeep(num) {
+    if (num==0) return Bangle.beep(200);
+    return new Promise(function f(resolve){
+      if (num--<=0) return resolve();
+      Bangle.beep(100).then(()=>{
+        setTimeout(()=>f(resolve), 200);
+      });
+    });
+  }
+
   function strike_base_func () {
-    strike_func();
+    var setting = require('Storage').readJSON('hourstrike.json',1)||[];
+    strike_func(setting.scount || 0, setting.buzzOrBeep || 0);
     setup();
   }
   function strike_offset_func () {
-    strike_func();
+    var setting = require('Storage').readJSON('hourstrike.json',1)||[];
+    strike_func(setting.offset_scount || 0, setting.buzzOrBeep || 0);
   }
   setup();
 })();
