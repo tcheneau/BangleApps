@@ -19,11 +19,13 @@ function showMainMenu() {
       settings.interval = mode_interval[v];
       if (v===0) {
         settings.next_hour = -1; settings.next_minute = -1; settings.offset = 0;
+      } else if (v=== -1) {
+        settings.offset =0;
       } else {
         settings.offset %= settings.interval;
       }
       updateSettings();
-      E.showMenu(mainmenu);
+      return showMainMenu();
       }};
   mainmenu.Start = {
     value: settings.start, min: 0, max: 23, format: v=>v+':00',
