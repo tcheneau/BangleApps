@@ -33,19 +33,19 @@
     }
     require('Storage').write('hourstrike.json', settings);
   }
-  function strike_func (count, buzzOrBeep) {
+  function strike_func (count, buzzOrBeep, vlevel) {
     if (0 == buzzOrBeep) {
-      vibrateDigitBuzz(count);
+      vibrateDigitBuzz(count, vlevel);
     } else {
       vibrateDigitBeep(count);
     }
   }
 
   /* from vectorclock */
-  function vibrateDigitBuzz(num) {
+  function vibrateDigitBuzz(num, vlevel) {
     return new Promise(function f(resolve){
       if (num--<=0) return resolve();
-      Bangle.buzz(200, setting.vlevel || 0.5).then(()=>{
+      Bangle.buzz(200, vlevel || 0.5).then(()=>{
         setTimeout(()=>f(resolve), 200);
       });
     });
@@ -61,13 +61,13 @@
 
   function strike_base_func () {
     var settings = require('Storage').readJSON('hourstrike.json',1)||[];
-    strike_func(settings.scount || 0, settings.buzzOrBeep || 0);
+    strike_func(settings.scount || 0, settings.buzzOrBeep || 0, settings.vlevel || 0.5);
     setup();
   }
 
   function strike_offset_func () {
     var settings = require('Storage').readJSON('hourstrike.json',1)||[];
-    strike_func(settings.offset_scount || 0, settings.buzzOrBeep || 0);
+    strike_func(settings.offset_scount || 0, settings.buzzOrBeep || 0, settings.vlevel || 0.5);
   }
 
   setup();
