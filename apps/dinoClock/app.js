@@ -145,10 +145,17 @@ function square(x,y,w,e) {
 function draw() {
   var d = new Date();
   var h = d.getHours(), m = d.getMinutes();
+
   h = ("0"+h).substr(-2);
   m = ("0"+m).substr(-2);
 
   var day = d.getDate(), mon = d.getMonth(), dow = d.getDay();
+
+  var startDate = new Date(d.getFullYear(), 0, 1);
+  var days = Math.floor((d - startDate) / (24 * 60 * 60 * 1000));
+  var weekNumber = Math.ceil(days / 7);
+
+
   day = ("0"+day).substr(-2);
   mon = ("0"+(mon+1)).substr(-2);
   dow = ((dow+6)%7).toString();
@@ -181,6 +188,8 @@ function draw() {
   g.clearRect(22,95,22+4*2*4+2*4,95+2*5);
   g.setFont("4x5NumPretty",2);
   g.drawString(date,22,95);
+
+  g.drawString(weekNumber + "+/52",22, 162);
 
   g.clearRect(22,79,22+24,79+13);
   g.setFont("DoW");
