@@ -159,7 +159,7 @@ function draw() {
   day = ("0"+day).substr(-2);
   mon = ("0"+(mon+1)).substr(-2);
   dow = ((dow+6)%7).toString();
-  date = day+"."+mon;
+  var date = day+"."+mon;
 
   var weatherJson = getWeather();
   var wIcon;
@@ -200,6 +200,7 @@ function draw() {
   g.clearRect(108,114,176,114+4*5);
   if (temp != "") {
     var tempWidth;
+    var x;
     const mid=126+15;
     if (temp[1][0]=="-") {
       // do not account for - when aligning
