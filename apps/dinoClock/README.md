@@ -13,5 +13,8 @@ Based on the [Weather Clock](https://github.com/espruino/BangleApps/tree/master/
 
 See the [Bangle.js Gadgetbridge documentation](https://www.espruino.com/Gadgetbridge) for instructions on setting up Gadgetbridge and weather.
 
+# Changes
+- Add week number at the bottom
+
 ![Screenshot](screens/screen1.png)
 
