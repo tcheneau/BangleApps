@@ -152,8 +152,8 @@ function draw() {
   var day = d.getDate(), mon = d.getMonth(), dow = d.getDay();
 
   var startDate = new Date(d.getFullYear(), 0, 1);
-  var days = Math.floor((d - startDate) / (24 * 60 * 60 * 1000));
-  var weekNumber = Math.ceil(days / 7);
+  var diffInDays = Math.floor((d.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000));
+  var weekNumber = Math.ceil((diffInDays + startDate.getDay()) / 7);
 
 
   day = ("0"+day).substr(-2);
